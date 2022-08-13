@@ -7,23 +7,23 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
-import {Playlist} from '../models';
+import {Playlist, Tracks} from '../models';
 import {PlaylistRepository} from '../repositories';
 
 export class PlaylistController {
   constructor(
     @repository(PlaylistRepository)
-    public playlistRepository : PlaylistRepository,
+    public playlistRepository: PlaylistRepository,
   ) {}
 
   @post('/playlists')
@@ -52,9 +52,7 @@ export class PlaylistController {
     description: 'Playlist model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Playlist) where?: Where<Playlist>,
-  ): Promise<Count> {
+  async count(@param.where(Playlist) where?: Where<Playlist>): Promise<Count> {
     return this.playlistRepository.count(where);
   }
 
@@ -106,7 +104,8 @@ export class PlaylistController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Playlist, {exclude: 'where'}) filter?: FilterExcludingWhere<Playlist>
+    @param.filter(Playlist, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Playlist>,
   ): Promise<Playlist> {
     return this.playlistRepository.findById(id, filter);
   }
@@ -146,5 +145,16 @@ export class PlaylistController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.playlistRepository.deleteById(id);
+  }
+
+  @put('/playlists/{id}/tracks')
+  @response(204, {
+    description: 'Track added successfully',
+  })
+  async addTracks(
+    @param.path.string('id') id: string,
+    @requestBody() tracks: Tracks,
+  ): Promise<void> {
+    return this.playlistRepository.addTracks(id, tracks);
   }
 }

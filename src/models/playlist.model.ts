@@ -11,13 +11,11 @@ export class Playlist extends Entity {
 
   @property({
     type: 'string',
-    required: true,
   })
   name: string;
 
   @property({
     type: 'string',
-    required: true,
   })
   creator: string;
 
