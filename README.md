@@ -1,73 +1,55 @@
-# simfyafrica
+# SIMFY AFRICA
 
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+Objective
+Create a simple Music API to handle operations on Tracks and Playlists.
 
-## Install dependencies
+The main CRUD objectives have be implemented. Database use was MongoDB. In order to create the REST APIs Loopback 4 was used. JWT Auth and Authorization was used in order to protect the endpoints.
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in `package.json` are changed, run the following command:
+## Requirement
+
+1. NodeJS
+2. Loopback CLI (npm install -g @loopback/cli)
+3. MongoDB
+
+## Feautures not added
+
+1. Logging
+2. Caching
+3. Unit Test - File and suite created for future unit testing
+
+## Features added
+
+1. Auth and Authorization
+2. CRUD
+
+# Start of application
 
 ```sh
-npm install
-```
-
-To only install resolved dependencies in `package-lock.json`:
-
-```sh
-npm ci
-```
-
-## Run the application
-
-```sh
+npm i
 npm start
 ```
 
-You can also run `node .` to skip the build step.
+Once launched, go to localhost:3000 on you browser. adn select /explorer.
 
-Open http://127.0.0.1:3000 in your browser.
+## Accessing Endpoints
 
-## Rebuild the project
-
-To incrementally build the project:
+Sign up using the `/signup` API, this is to create a user:
 
 ```sh
-npm run build
+{
+  "email": "testuser@example.com",
+  "password": "testuser"
+}
 ```
 
-To force a full build by cleaning up cached artifacts:
+Then Log in using the `POST /users/login` API (same structure).
 
-```sh
-npm run rebuild
+After calling `/users/login`, the response body will look something like:
+
+```
+{
+  "token": "XXXXXXXXXXX.XXXXXXXXXXXXX"
+}
 ```
 
-## Fix code style and formatting issues
-
-```sh
-npm run lint
-```
-
-To automatically fix such issues:
-
-```sh
-npm run lint:fix
-```
-
-## Other useful commands
-
-- `npm run migrate`: Migrate database schemas for models
-- `npm run openapi-spec`: Generate OpenAPI spec into a file
-
-## Tests
-
-```sh
-npm test
-```
-
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+\*Above is an example
