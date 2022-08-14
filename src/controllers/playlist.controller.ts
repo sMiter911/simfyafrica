@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -20,6 +21,7 @@ import {
 import {Playlist, Tracks} from '../models';
 import {PlaylistRepository} from '../repositories';
 
+@authenticate('jwt')
 export class PlaylistController {
   constructor(
     @repository(PlaylistRepository)
